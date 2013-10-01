@@ -53,3 +53,12 @@ function Point:equals( point )
 	return (self._x==point:x() and self._y==point:y())
 end
 
+function Point:sum( point )
+	self._x=self._x+point:x()
+	self._y=self._y+point:y()
+end
+
+function Point:divide(n)
+	self._x=self._x/n
+	self._y=self._y/n
+end

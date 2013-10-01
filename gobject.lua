@@ -1,4 +1,5 @@
 require "class"
+require "point"
 require "rectangle"
 -- require "color"
 
@@ -47,6 +48,11 @@ end
 
 function GObject:drawObject(  )
 	-- Nothing to do here
+end
+
+function GObject:center(  )
+	bounds = self:bounds()
+	return Point.new(bounds:x()+bounds:width()/2,bounds:y()+bounds:height()/2)
 end
 
 function GObject:isVisible(  )

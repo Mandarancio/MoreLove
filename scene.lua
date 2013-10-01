@@ -32,7 +32,7 @@ function Scene:draw(  )
 	love.graphics.push()
 	camera = self._camera
 
-	love.graphics.translate(camera:x()*self._scale[0],camera:y()*self._scale[1])
+	love.graphics.translate(-camera:x()*self._scale[0],-camera:y()*self._scale[1])
 
 	for i=0, table.getn(self._objects) do
 		self._objects[i]:draw()
@@ -62,4 +62,5 @@ end
 
 function Scene:update( dt )
 	self._world:update(dt)
+	self._camera:update()
 end
