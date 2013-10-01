@@ -1,4 +1,7 @@
  
+S_WIDTH=800
+S_HEIGHT=600
+
 function love.conf(t)
     t.title = "Test"        -- The title of the window the game is in (string)
     t.author = "Martino Ferrari"        -- The author of the game (string)
@@ -7,8 +10,8 @@ function love.conf(t)
     t.version = "0.8.0"         -- The LÖVE version this game was made for (string)
     t.console = false           -- Attach a console (boolean, Windows only)
     t.release = false           -- Enable release mode (boolean)
-    t.screen.width = 1600        -- The window width (number)
-    t.screen.height = 1200       -- The window height (number)
+    t.screen.width = S_WIDTH    -- The window width (number)
+    t.screen.height = S_HEIGHT  -- The window height (number)
     t.screen.fullscreen = false -- Enable fullscreen (boolean)
     t.screen.vsync = true       -- Enable vertical sync (boolean)
     t.screen.fsaa = 0           -- The number of FSAA-buffers (number)
