@@ -13,7 +13,7 @@ function love.load(  )
 	scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
 	scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
     --camera follow
-    scene:camera():addFollow(object,1)
+    scene:camera():addFollow(object,30)
 end
 
 function love.draw(  )
