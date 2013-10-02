@@ -9,14 +9,32 @@ require "scene"
 require "state"
 require "statemachine"
 
-function test( )
-    print("ciao")
-end
-function a( )
-    -- body
+function initMenu()
+      -- set up menu
+    local menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0},statemachine)
+    menu:addItem("Start!")
+    menu:addItem("Stop!")
+    return menu
 end
 
-    
+function initScene(  )
+    -- init scene
+    local scene = Scene.new(S_WIDTH,S_HEIGHT,8.0,6.0)
+    scene:initialize()
+    -- create a new dynamic object
+    object=Voxel.new("dynamic",Rectangle.new(4,3,0.3,0.3),scene:world())
+    -- add objects to the scene
+    scene:addObject(object)
+    scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
+    scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
+    --camera follow
+    scene:camera():addFollow(object,30)
+
+    return scene
+
+end
+
+
 function love.load(  )
 
     -- set anti alaising for lines
@@ -24,30 +42,21 @@ function love.load(  )
     -- set up state machine
     statemachine = StateMachine.new()
 
-    -- set up menu
-    menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0},statemachine)
-    menu:addItem("Start!")
-    menu:addItem("Stop!")
+  
     -- create state
-    first= State.new(nil,menu)
+    first= State.new(nil,nil)
+    first:setupFunction(initMenu)
+    first:initialize()
 
 
     statemachine:add(first)
     statemachine:setCurrentState(first)
 
-    -- init scene
-	scene = Scene.new(S_WIDTH,S_HEIGHT,8.0,6.0)
-	scene:initialize()
-    -- create a new dynamic object
-    object=Voxel.new("dynamic",Rectangle.new(4,3,0.3,0.3),scene:world())
-	-- add objects to the scene
-	scene:addObject(object)
-	scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
-	scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
-    --camera follow
-    scene:camera():addFollow(object,30)
+    
+    second= State.new(first,nil)
+    second:setupFunction(initScene)
+    second:initialize()
 
-    second= State.new(first,scene)
     first:setNext(second)
 
     statemachine:add(second)

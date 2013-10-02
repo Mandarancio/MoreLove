@@ -5,11 +5,12 @@ require "menu"
 State = {}
 State.__index=State
 
-function  State.new(previous,scene)
+function  State.new(previous,next)
 	local hud = {
-		_scene=scene,
+		_scene={},
 		_prevous=previous,
-		_next={}
+		_next=next,
+		_setup
 	}
 	setmetatable(hud,State)
 	return hud
@@ -17,6 +18,10 @@ end
 
 setmetatable(State,{__index = Class})
 
+
+function State:setupFunction( fun )
+	self._setup=fun
+end
 
 function State:scene(  )
 	return self._scene
@@ -41,4 +46,8 @@ end
 
 function State:callBack() 
 	print("hereee")
+end
+
+function State:initialize(  )
+	self._scene=self._setup()
 end

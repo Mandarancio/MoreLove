@@ -58,7 +58,6 @@ end
 function Menu:keyPressed(key)
 
 	if (key=="return") then
-		print("ciao!")
 		self:next()
 	end
 
