@@ -5,8 +5,6 @@ Array.__index=Array
 
 function  Array.new()
 	local array = {
-			_x=x,
-			_y=y,
 			_list={},
 			_size=0
 		}

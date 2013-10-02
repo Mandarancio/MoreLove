@@ -3,6 +3,8 @@ require "class"
 Menu = {}
 Menu.__index=Menu
 
+
+
 function  Menu.new(res,size)
 	local hud = {
 			_name="Menu",

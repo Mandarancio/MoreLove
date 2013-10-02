@@ -1,26 +1,29 @@
 require "class"
+require "scene"
+require "menu"
 
 State = {}
 State.__index=State
 
-function  State.new(previous)
+function  State.new(previous,scene)
 	local hud = {
-		_scene={},
+		_scene=scene,
 		_prevous=previous,
 		_next={}
 	}
-
 	setmetatable(hud,State)
 	return hud
 end
 
 setmetatable(State,{__index = Class})
 
+
 function State:scene(  )
 	return self._scene
 end
 
 function State:setNext( next )
+
 	self._next=next
 end
 

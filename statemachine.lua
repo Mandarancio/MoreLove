@@ -1,4 +1,5 @@
 require "class"
+require "state"
 
 StateMachine = {}
 StateMachine.__index=StateMachine
@@ -21,10 +22,23 @@ function StateMachine:currentState(	 )
 end
 
 function StateMachine:setCurrentState( state )
-	self._currentState=state
+	if (state==nil)then
+		print("ERROR")
+	else
+		self._currentState=state
+	end
+
 end
 
 function StateMachine:add( state )
 	self._size=self._size+1
 	self._states[self._size]=state
+end
+
+function StateMachine:back()
+	current=self._currentState
+	self._currentState=current:previous()
+	if (self._currentState== nil) then
+    	love.event.push("quit")   -- actually causes the app to quit
+	end
 end
