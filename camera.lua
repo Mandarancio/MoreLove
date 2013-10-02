@@ -11,7 +11,8 @@ function  Camera.new(x,y,w,h)
 			_isFollowing=false,
 			_followingPosition={},
 			_offSet=Point.new(0,0),
-			_offSetLimitation=Rectangle.new(0,0,0,0)
+			_offSetLimitation=Rectangle.new(-1,-1,2,2),
+			_moveFactor=0.05
 		}
 	inst._size=Dimension.new(w,h)
 	inst._pos=Point.new(x,y)
@@ -121,5 +122,19 @@ function Camera:update(  )
 	if (self._isFollowing) then
 		self._followingPosition:add(self._follow:center())
 		self:computePosition()
+	end
+	if (self._moveFactor!=0) then
+		if love.keyboard.isDown("up") then
+	    	self:move(0,-self._moveFactor) 
+	   	end
+	    if love.keyboard.isDown("down") then
+	    	self:move(0,self._moveFactor)
+	    end
+	    if love.keyboard.isDown("right") then
+	    	self:move(self._moveFactor,0)
+	    end
+	    if love.keyboard.isDown("left") then
+	    	self:move(-self._moveFactor,0)
+	    end
 	end
 end
