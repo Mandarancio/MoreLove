@@ -1,5 +1,6 @@
 require "rectangle"
 require "camera"
+require "hud"
 
 Scene = {}
 Scene.__index=Scene
@@ -17,6 +18,7 @@ function  Scene.new(width,height,camera_width,camera_height)
 	inst._camera=Camera.new(0.0,0.0,camera_width,camera_height)
 	inst._world={}
 	inst._size=0
+	inst._hud=Hud.new({width,height},{camera_width,camera_height})
 	setmetatable(inst,Scene)
 	return inst
 end
@@ -39,6 +41,7 @@ function Scene:draw(  )
 	end
 
 	love.graphics.pop()
+	self._hud:draw()
 
 end
 
@@ -63,4 +66,12 @@ end
 function Scene:update( dt )
 	self._world:update(dt)
 	self._camera:update()
+end
+
+function Scene:setHud( hud )
+	self._hud=hud
+end
+
+function Scene:hud(  )
+	return self._hud
 end

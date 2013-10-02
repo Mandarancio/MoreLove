@@ -1,7 +1,6 @@
 require "class"
 require "point"
 require "rectangle"
--- require "color"
 
 GObject = {}
 GObject.__index=GObject

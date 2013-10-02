@@ -12,7 +12,8 @@ function  Camera.new(x,y,w,h)
 			_followingPosition={},
 			_offSet=Point.new(0,0),
 			_offSetLimitation=Rectangle.new(-1,-1,2,2),
-			_moveFactor=0.05
+			_moveFactor=0.0,
+			_moving=false
 		}
 	inst._size=Dimension.new(w,h)
 	inst._pos=Point.new(x,y)
@@ -122,8 +123,10 @@ function Camera:update(  )
 	if (self._isFollowing) then
 		self._followingPosition:add(self._follow:center())
 		self:computePosition()
-	end
-	if (self._moveFactor!=0) then
+	end 
+	-- check if move is enabled
+	if self._moving then
+		-- check if arrows key ar pressed
 		if love.keyboard.isDown("up") then
 	    	self:move(0,-self._moveFactor) 
 	   	end
@@ -137,4 +140,13 @@ function Camera:update(  )
 	    	self:move(-self._moveFactor,0)
 	    end
 	end
+end
+
+function Camera:setMovement( delta )
+	if (math.abs(delta)>0) then
+		self._moving=true
+	else
+		self._moving=false
+	end
+	self._moveFactor=delta
 end
