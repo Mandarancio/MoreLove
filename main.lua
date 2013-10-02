@@ -18,6 +18,8 @@ function love.load(  )
 	scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
 	scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
     --camera follow
+
+    scene:camera():setOffsetLimit(Rectangle.new(-1,-1,2,2))
     scene:camera():addFollow(object,30)
 end
 
