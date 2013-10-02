@@ -42,3 +42,11 @@ function StateMachine:back()
     	love.event.push("quit")   -- actually causes the app to quit
 	end
 end
+
+function StateMachine:forward()
+	self._currentState=self._currentState:next()
+end
+
+function StateMachine:getCallBack(  )
+	return self.forward
+end

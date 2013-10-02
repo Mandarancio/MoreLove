@@ -5,7 +5,7 @@ Menu.__index=Menu
 
 
 
-function  Menu.new(res,size)
+function  Menu.new(res,size,machine)
 	local hud = {
 			_name="Menu",
 			_resolution={res[1],res[2]},
@@ -13,7 +13,8 @@ function  Menu.new(res,size)
 			_items={},
 			_nitems=0,
 			_selected=1,
-			_step=30
+			_step=30,
+			_machine=machine
 		}
 
 	setmetatable(hud,Menu)
@@ -52,4 +53,17 @@ end
 
 function Menu:update( dt )
 	-- body
+end
+
+function Menu:keyPressed(key)
+
+	if (key=="return") then
+		print("ciao!")
+		self:next()
+	end
+
+end
+
+function Menu:next()
+	self._machine:forward()
 end

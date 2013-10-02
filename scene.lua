@@ -75,3 +75,11 @@ end
 function Scene:hud(  )
 	return self._hud
 end
+
+function Scene:keyPressed(key)
+	-- body
+	if (key=="return") then
+		print("ciao!")
+	end
+	
+end

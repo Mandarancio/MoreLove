@@ -1,10 +1,11 @@
 require "scene"
 require "conf"
-require "connector"
+
 require "voxel"
--- require "basichud"
-require "rectangle"
+
 require "menu"
+require "scene"
+
 require "state"
 require "statemachine"
 
@@ -24,11 +25,12 @@ function love.load(  )
     statemachine = StateMachine.new()
 
     -- set up menu
-    menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0})
+    menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0},statemachine)
     menu:addItem("Start!")
     menu:addItem("Stop!")
     -- create state
     first= State.new(nil,menu)
+
 
     statemachine:add(first)
     statemachine:setCurrentState(first)
@@ -50,7 +52,6 @@ function love.load(  )
 
     statemachine:add(second)
 
-
     -- set a basic hud
     -- scene:setHud(BasicHud.new({S_WIDTH,S_HEIGHT},{8,6}))
 
@@ -65,7 +66,9 @@ end
 function love.keypressed(key)   -- we do not need the unicode, so we can leave it out
    	if key == "escape" then
         statemachine:back()
-   	end
+    else
+        statemachine:currentState():scene():keyPressed(key) 
+    end
 end
 
 -- love update 
