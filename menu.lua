@@ -47,3 +47,7 @@ end
 function Menu:selected()
 	return self._selected
 end
+
+function Menu:update( dt )
+	-- body
+end
