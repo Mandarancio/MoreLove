@@ -4,6 +4,7 @@ require "conf"
 require "voxel"
 -- require "basichud"
 require "rectangle"
+require "menu"
     
 function love.load(  )
     -- set anti alaising for lines
@@ -21,10 +22,14 @@ function love.load(  )
     scene:camera():addFollow(object,30)
     -- set a basic hud
     -- scene:setHud(BasicHud.new({S_WIDTH,S_HEIGHT},{8,6}))
+    menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0})
+    menu:addItem("Start!")
+    menu:addItem("Stop!")
 end
 
 -- love draw event
 function love.draw(  )
+    -- menu:draw()
 	scene:draw() -- use the scene:draw method
 end
 
