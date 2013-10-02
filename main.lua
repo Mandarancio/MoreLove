@@ -2,7 +2,7 @@ require "scene"
 require "conf"
 
 require "voxel"
-require "basichud"
+-- require "basichud"
 require "rectangle"
     
 function love.load(  )
@@ -20,7 +20,7 @@ function love.load(  )
     --camera follow
     scene:camera():addFollow(object,30)
     -- set a basic hud
-    scene:setHud(BasicHud.new({S_WIDTH,S_HEIGHT},{8,6}))
+    -- scene:setHud(BasicHud.new({S_WIDTH,S_HEIGHT},{8,6}))
 end
 
 -- love draw event
