@@ -19,6 +19,7 @@ function  Scene.new(width,height,camera_width,camera_height)
 	inst._world={}
 	inst._size=0
 	inst._hud=Hud.new({width,height},{camera_width,camera_height})
+
 	setmetatable(inst,Scene)
 	return inst
 end
@@ -78,8 +79,11 @@ end
 
 function Scene:keyPressed(key)
 	-- body
+
 	if (key=="return") then
 		print("ciao!")
+	elseif (key=="escape") then
+		self:signal()
 	end
 	
 end

@@ -6,6 +6,8 @@ require "voxel"
 require "menu"
 require "scene"
 
+require "test"
+
 require "state"
 require "statemachine"
 require "menuitem"
@@ -16,12 +18,17 @@ function initMenu()
       -- set up menu
     local menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0},statemachine)
     local mi=MenuItem.new("Start")
+    mi:initRegister()
     menu:addItem(mi)
     mi:register(statemachine,statemachine.forward)
+    
     mi=MenuItem.new("Restart")
+    mi:initRegister()
     mi:register(statemachine,statemachine.restartNext)
     menu:addItem(mi)
+    
     mi=MenuItem.new("Exit")
+    mi:initRegister()
     mi:register(nil,exit)
     menu:addItem(mi)
 
@@ -42,6 +49,7 @@ function restart( subject )
 end
 
 
+
 function initScene(  )
     -- init scene
     local scene = Scene.new(S_WIDTH,S_HEIGHT,8.0,6.0)
@@ -52,8 +60,10 @@ function initScene(  )
     scene:addObject(object)
     scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
     scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
+    scene:initRegister()
     --camera follow
     scene:camera():addFollow(object,30)
+    scene:register("Scene",statemachine,statemachine.back)
 
     return scene
 
@@ -61,6 +71,9 @@ end
 
 
 function love.load(  )
+    test = Test.new()
+    print(test:toString())
+
     -- set anti alaising for lines
     love.graphics.setLineStyle("smooth")
     -- set up state machine

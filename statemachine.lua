@@ -43,7 +43,7 @@ function StateMachine:restartNext(  )
 end
 
 function StateMachine:back()
-	self._currentState=self._currentState
+	self._currentState=self._currentState:previous()
 end
 
 function StateMachine:forward()
