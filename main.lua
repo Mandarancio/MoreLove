@@ -84,8 +84,8 @@ function love.load(  )
 
 
 
-    statemachine:add(first)
-    statemachine:setCurrentState(first)
+    statemachine:add(first,"menu")
+    -- statemachine:setCurrentState(first)
 
     
     second= State.new(first,nil)
@@ -96,7 +96,7 @@ function love.load(  )
 
     first:setNext(second)
 
-    statemachine:add(second)
+    statemachine:add(second,"mainscene")
 
     -- set a basic hud
     -- scene:setHud(BasicHud.new({S_WIDTH,S_HEIGHT},{8,6}))

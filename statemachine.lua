@@ -6,7 +6,7 @@ StateMachine.__index=StateMachine
 
 function  StateMachine.new()
 	local hud = {
-		_currentState={},
+		_currentState,
 		_states={},
 		_size=0
 	}
@@ -21,18 +21,20 @@ function StateMachine:currentState(	 )
 	return self._currentState
 end
 
-function StateMachine:setCurrentState( state )
-	if (state==nil)then
-		print("ERROR")
-	else
+function StateMachine:setState( name )
+	self._currentState=self._states[name]
+end
+
+function StateMachine:add( state,name )
+	if (self._currentState==nil) then
 		self._currentState=state
 	end
 
-end
-
-function StateMachine:add( state )
 	self._size=self._size+1
-	self._states[self._size]=state
+	-- if (self._states==nil) then
+	-- 	self._states={}
+	-- end
+	self._states[name]=state
 end
 
 function StateMachine:restartNext(  )
@@ -48,10 +50,6 @@ end
 
 function StateMachine:forward()
 	self._currentState=self._currentState:next()
-end
-
-function StateMachine:getCallBack(  )
-	return self.forward
 end
 
 function StateMachine:draw(  )
