@@ -35,6 +35,13 @@ function StateMachine:add( state )
 	self._states[self._size]=state
 end
 
+function StateMachine:restartNext(  )
+	self._currentState=self._currentState:next()
+	self._currentState:initialize()
+
+	-- body
+end
+
 function StateMachine:back()
 	self._currentState=self._currentState
 end

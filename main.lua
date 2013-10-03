@@ -18,9 +18,12 @@ function initMenu()
     local mi=MenuItem.new("Start")
     menu:addItem(mi)
     mi:register(statemachine,statemachine.forward)
-
-    menu:addItem(MenuItem.new("Restart"))
-    menu:addItem(MenuItem.new("Exit"))
+    mi=MenuItem.new("Restart")
+    mi:register(statemachine,statemachine.restartNext)
+    menu:addItem(mi)
+    mi=MenuItem.new("Exit")
+    mi:register(nil,exit)
+    menu:addItem(mi)
 
     return menu
 end
@@ -30,8 +33,7 @@ function start(subject)
 end
 
 function exit( subject )
-        love.event.push("quit")   -- actually causes the app to quit
-
+    love.event.push("quit")   -- actually causes the app to quit
 end
 
 function restart( subject )
