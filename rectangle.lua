@@ -82,9 +82,9 @@ function Rectangle:intersect( rect )
 end
 
 function Rectangle:containRect( rect )
-	a=Point.new(rect:x(),rect:y())
-	b=Point.new(rect:x(),rect:y()+rect:height())
-	c=Point.new(rect:x()+rect:width(),rect:y()+rect:height())
-	d=Point.new(rect:x()+rect:width(),rect:y())
+	local a=Point.new(rect:x(),rect:y())
+	local b=Point.new(rect:x(),rect:y()+rect:height())
+	local c=Point.new(rect:x()+rect:width(),rect:y()+rect:height())
+	local d=Point.new(rect:x()+rect:width(),rect:y())
 	return (self:containPoint(a) and self:containPoint(b) and self:containPoint(c) and self:containPoint(d))
 end

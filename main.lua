@@ -8,14 +8,37 @@ require "scene"
 
 require "state"
 require "statemachine"
+require "menuitem"
+
+
 
 function initMenu()
       -- set up menu
     local menu=Menu.new({S_WIDTH,S_HEIGHT},{8.0,6.0},statemachine)
-    menu:addItem("Start!")
-    menu:addItem("Stop!")
+    local mi=MenuItem.new("Start")
+    menu:addItem(mi)
+    mi:register(statemachine,statemachine.forward)
+
+    menu:addItem(MenuItem.new("Restart"))
+    menu:addItem(MenuItem.new("Exit"))
+
     return menu
 end
+
+function start(subject)
+    statemachine:next()
+end
+
+function exit( subject )
+        love.event.push("quit")   -- actually causes the app to quit
+
+end
+
+function restart( subject )
+    second:initialize()
+    statemachine:next()
+end
+
 
 function initScene(  )
     -- init scene
@@ -36,7 +59,6 @@ end
 
 
 function love.load(  )
-
     -- set anti alaising for lines
     love.graphics.setLineStyle("smooth")
     -- set up state machine
@@ -49,6 +71,8 @@ function love.load(  )
     first:initialize()
 
 
+
+
     statemachine:add(first)
     statemachine:setCurrentState(first)
 
@@ -56,6 +80,8 @@ function love.load(  )
     second= State.new(first,nil)
     second:setupFunction(initScene)
     second:initialize()
+
+
 
     first:setNext(second)
 
@@ -68,20 +94,17 @@ end
 
 -- love draw event
 function love.draw(  )
-    statemachine:currentState():scene():draw()
+    statemachine:draw()
 end
 
 -- love key pressed event
 function love.keypressed(key)   -- we do not need the unicode, so we can leave it out
-   	if key == "escape" then
-        statemachine:back()
-    else
-        statemachine:currentState():scene():keyPressed(key) 
-    end
+
+        statemachine:keypressed(key)
 end
 
 -- love update 
 function love.update(dt)
 
-    statemachine:currentState():scene():update(dt)
+    statemachine:update(dt)
 end

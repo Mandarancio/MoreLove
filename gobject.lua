@@ -50,7 +50,7 @@ function GObject:drawObject(  )
 end
 
 function GObject:center(  )
-	bounds = self:bounds()
+	local	bounds = self:bounds()
 	return Point.new(bounds:x()+bounds:width()/2,bounds:y()+bounds:height()/2)
 end
 

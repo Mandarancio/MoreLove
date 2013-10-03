@@ -36,11 +36,7 @@ function StateMachine:add( state )
 end
 
 function StateMachine:back()
-	current=self._currentState
-	self._currentState=current:previous()
-	if (self._currentState== nil) then
-    	love.event.push("quit")   -- actually causes the app to quit
-	end
+	self._currentState=self._currentState
 end
 
 function StateMachine:forward()
@@ -49,4 +45,16 @@ end
 
 function StateMachine:getCallBack(  )
 	return self.forward
+end
+
+function StateMachine:draw(  )
+	self._currentState:scene():draw()
+end
+
+function StateMachine:update( dt )
+	self._currentState:scene():update(dt)
+end
+
+function StateMachine:keypressed( key )
+	self._currentState:scene():keyPressed(key)
 end

@@ -24,13 +24,13 @@ end
 setmetatable(Voxel,{__index = GObject})
 
 function Voxel:bounds( )
-	points = {self._fixture:getBoundingBox()}
+	local points = {self._fixture:getBoundingBox()}
 	return Rectangle.new(points[1],points[2],(points[3]-points[1]),(points[4]-points[2]))
 end
 
 function Voxel:drawObject(  )
   	love.graphics.setColor(150, 150, 150) -- set the drawing color to grey for the blocks
-  	points = {self._body:getWorldPoints(self._shape:getPoints())}
+  	local points = {self._body:getWorldPoints(self._shape:getPoints())}
 	for i=1, table.getn(points) do
 		points[i]=points[i]*self._scale[(i-1)%2]
 	end

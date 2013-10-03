@@ -16,7 +16,6 @@ function  Menu.new(res,size,machine)
 			_step=30,
 			_machine=machine
 		}
-
 	setmetatable(hud,Menu)
 	hud._unit=0.01*res[2]/size[2]
 	hud._fontSize=30*hud._unit
@@ -36,13 +35,13 @@ function Menu:draw(  )
 	love.graphics.setColor(255,255,255)
 	love.graphics.setFont(self._font)
 
-	dh=self._resolution[2]/2-(self._nitems*(self._step*2*self._unit+self._fontSize))/2
-	y=self._step*self._unit+dh
-	
+	local	dh=self._resolution[2]/2-(self._nitems*(self._step*2*self._unit+self._fontSize))/2
+	local y=self._step*self._unit+dh
+	local x=0
 
 	for i=1, self._nitems do 
-		x=self._resolution[1]/2-self._font:getWidth(self._items[i])/2
-		love.graphics.print(self._items[i],x,y)
+		x=self._resolution[1]/2-self._font:getWidth(self._items[i]:text())/2
+		love.graphics.print(self._items[i]:text(),x,y)
 		y=y+self._step*self._unit+self._fontSize
 	end	
 end
@@ -58,7 +57,9 @@ end
 function Menu:keyPressed(key)
 
 	if (key=="return") then
-		self:next()
+		self._items[self._selected]:signal()
+	elseif (key=="escape") then
+    	love.event.push("quit")   -- actually causes the app to quit
 	end
 
 end
