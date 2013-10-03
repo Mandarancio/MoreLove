@@ -4,16 +4,17 @@ Class ={}
 Class.__index=Class
 
 function Class.new()
-	local obj={_name="Class",_reg,_dereg,_notify,_signal}
-	
+	local obj={_name="Class",_reg,_dereg,_notify}
+	obj._sign={}
 	setmetatable(obj,Class)
 	return obj
 end
 
 function Class:initRegister(  )
 	self._reg,self._dereg,self._notify=observer.create()
-	self._signal=observer.signal(self,self._notify,self._name)
+	self._sign={}
 end
+
 function Class:toString(  )
 	return self._name
 end
@@ -30,6 +31,10 @@ function Class:register(signal,reciver,slot)
 	self:_reg(signal,reciver,slot)
 end
 
-function Class:signal(  )
-	self._signal(self._text)
+function Class:signal(name)
+	self._sign[name](self._text)
+end
+
+function Class:createSignal( name )
+	self._sign[name]=observer.signal(self,self._notify,name)
 end

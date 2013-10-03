@@ -78,7 +78,7 @@ end
 function Menu:keyPressed(key)
 
 	if (key=="return") then
-		self._items[self._selected]:signal()
+		self._items[self._selected]:signal(self._items[self._selected]:text())
 	elseif (key=="escape") then
     	love.event.push("quit")   -- actually causes the app to quit
 	elseif key=="up" then

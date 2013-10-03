@@ -27,8 +27,10 @@ end
 setmetatable(Scene,{__index = Rectangle})
 
 function Scene:initialize(  )
+  self:initRegister()
   love.physics.setMeter(1) --the height of a meter our worlds will be 64px
   self._world= love.physics.newWorld(0, 9.81, true) --create a world for the bodies to exist in with horizontal gravity of 0 and vertical gravity of 9.81
+  self:createSignal("backToMenu")
 end
 
 function Scene:draw(  )
@@ -79,11 +81,8 @@ end
 
 function Scene:keyPressed(key)
 	-- body
-
-	if (key=="return") then
-		print("ciao!")
-	elseif (key=="escape") then
-		self:signal()
+	if (key=="escape") then
+		self:signal("Back")
 	end
 	
 end

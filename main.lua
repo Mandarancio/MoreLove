@@ -6,8 +6,6 @@ require "voxel"
 require "menu"
 require "scene"
 
-require "test"
-
 require "state"
 require "statemachine"
 require "menuitem"
@@ -20,34 +18,34 @@ function initMenu()
     local mi=MenuItem.new("Start")
     mi:initRegister()
     menu:addItem(mi)
+    mi:createSignal("Start")
     mi:register(statemachine,statemachine.forward)
-    
+
     mi=MenuItem.new("Restart")
     mi:initRegister()
-    mi:register(statemachine,statemachine.restartNext)
+    mi:createSignal("Restart")
+    mi:register(nil,restart)
     menu:addItem(mi)
     
     mi=MenuItem.new("Exit")
     mi:initRegister()
+    mi:createSignal("Exit")
     mi:register(nil,exit)
     menu:addItem(mi)
 
     return menu
 end
 
-function start(subject)
-    statemachine:next()
-end
 
+-- SLOTS
 function exit( subject )
     love.event.push("quit")   -- actually causes the app to quit
 end
 
 function restart( subject )
     second:initialize()
-    statemachine:next()
+    statemachine:forward()
 end
-
 
 
 function initScene(  )
@@ -60,10 +58,10 @@ function initScene(  )
     scene:addObject(object)
     scene:addObject(Voxel.new("static",Rectangle.new(4.2,5,0.1,0.1),scene:world()))
     scene:addObject(Voxel.new("static",Rectangle.new(0,5.9,8.0,0.5),scene:world()))
-    scene:initRegister()
     --camera follow
     scene:camera():addFollow(object,30)
-    scene:register("Scene",statemachine,statemachine.back)
+    scene:createSignal("Back")
+    scene:register("Back",statemachine,statemachine.back)
 
     return scene
 
@@ -71,8 +69,6 @@ end
 
 
 function love.load(  )
-    test = Test.new()
-    print(test:toString())
 
     -- set anti alaising for lines
     love.graphics.setLineStyle("smooth")

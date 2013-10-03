@@ -7,9 +7,6 @@ function  MenuItem.new(text)
 	local inst = {
 		_name=text,
 	}
-
-
-
 	setmetatable(inst,MenuItem)
 	return inst
 end
