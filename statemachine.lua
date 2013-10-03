@@ -26,22 +26,18 @@ function StateMachine:setState( name )
 end
 
 function StateMachine:add( state,name )
+	
 	if (self._currentState==nil) then
 		self._currentState=state
 	end
 
 	self._size=self._size+1
-	-- if (self._states==nil) then
-	-- 	self._states={}
-	-- end
 	self._states[name]=state
 end
 
 function StateMachine:restartNext(  )
 	self._currentState=self._currentState:next()
 	self._currentState:initialize()
-
-	-- body
 end
 
 function StateMachine:back()
